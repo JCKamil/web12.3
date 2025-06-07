@@ -4,12 +4,12 @@ const supabaseUrl = 'https://fvgkwcvwqbdugexretbi.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2Z2t3Y3Z3cWJkdWdleHJldGJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkyMDAwMzMsImV4cCI6MjA2NDc3NjAzM30.1uQjmY4OKycYzSUl-q9VFWjYiRTNux36i7H17T1pmmA';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-const articlesDiv = document.getElementById('articles');
+const articlesDiv = document.getElementById('Articles');
 const form = document.getElementById('article-form');
 
 async function fetchArticles() {
   const { data, error } = await supabase
-    .from('articles')
+    .from('Articles') // <-- poprawiona nazwa
     .select('*')
     .order('created_at', { ascending: false });
 
@@ -50,7 +50,8 @@ form.addEventListener('submit', async (e) => {
 
   const { error } = await supabase.from('articles').insert([newArticle]);
   if (error) {
-    alert('Błąd podczas dodawania artykułu: ' + error.message);
+    console.error('Błąd podczas dodawania artykułu:', error.message || error);
+    alert('Nie udało się dodać artykułu:\n' + (error.message || JSON.stringify(error)));
   } else {
     form.reset();
     fetchArticles();
