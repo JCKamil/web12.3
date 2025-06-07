@@ -4,14 +4,14 @@ const supabaseUrl = 'https://fvgkwcvwqbdugexretbi.supabase.co';
 const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ2Z2t3Y3Z3cWJkdWdleHJldGJpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkyMDAwMzMsImV4cCI6MjA2NDc3NjAzM30.1uQjmY4OKycYzSUl-q9VFWjYiRTNux36i7H17T1pmmA';
 const supabase = createClient(supabaseUrl, supabaseKey);
 
-const articlesDiv = document.getElementById('Articles');
+const articlesDiv = document.getElementById('articles');
 const form = document.getElementById('article-form');
 
 async function fetchArticles() {
   const { data, error } = await supabase
-    .from('Articles') // <-- poprawiona nazwa
+    .from('Articles') // 👈 dokładna nazwa z Supabase
     .select('*')
-    .order('created_at', { ascending: false });
+    .order('id', { ascending: false });
 
   if (error) {
     articlesDiv.textContent = 'Błąd podczas pobierania artykułów';
@@ -29,7 +29,7 @@ async function fetchArticles() {
     articleEl.innerHTML = `
       <h2>${article.title}</h2>
       <h4>${article.subtitle}</h4>
-      <p><em>Autor: ${article.author} | Data: ${new Date(article.created_at).toLocaleString()}</em></p>
+      <p><em>Autor: ${article.author}</em></p>
       <p>${article.content}</p>
     `;
 
@@ -48,13 +48,18 @@ form.addEventListener('submit', async (e) => {
     content: formData.get('content'),
   };
 
-  const { error } = await supabase.from('articles').insert([newArticle]);
+  const { error } = await supabase.from('Articles').insert([newArticle]); // 👈 tu też poprawiona nazwa
   if (error) {
     console.error('Błąd podczas dodawania artykułu:', error.message || error);
     alert('Nie udało się dodać artykułu:\n' + (error.message || JSON.stringify(error)));
   } else {
     form.reset();
     fetchArticles();
+  }
+});
+
+fetchArticles();
+
   }
 });
 
