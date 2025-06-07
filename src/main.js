@@ -9,7 +9,7 @@ const form = document.getElementById('article-form');
 
 async function fetchArticles() {
   const { data, error } = await supabase
-    .from('Articles')
+    .from('articles') // <- ważne: mała litera!
     .select('*')
     .order('created_at', { ascending: false });
 
@@ -49,14 +49,13 @@ form.addEventListener('submit', async (e) => {
   };
 
   const { error } = await supabase.from('articles').insert([newArticle]);
-if (error) {
-  console.error('Błąd podczas dodawania artykułu:', error.message || error);
-  alert('Nie udało się dodać artykułu:\n' + (error.message || JSON.stringify(error)));
-}
+
+  if (error) {
+    console.error('Błąd podczas dodawania artykułu:', error.message || error);
+    alert('Nie udało się dodać artykułu:\n' + (error.message || JSON.stringify(error)));
   } else {
     form.reset();
     fetchArticles();
-  }
   }
 });
 
