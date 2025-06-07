@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Artykuły</title>
+  <link rel="stylesheet" href="/src/styles.css" />
+</head>
+<body>
+  <h1>Lista artykułów</h1>
+  <div id="articles"></div>
+
+  <h2>Dodaj nowy artykuł</h2>
+  <form id="article-form">
+    <input type="text" name="title" placeholder="Tytuł" required /><br />
+    <input type="text" name="subtitle" placeholder="Podtytuł" required /><br />
+    <input type="text" name="author" placeholder="Autor" required /><br />
+    <textarea name="content" placeholder="Treść artykułu" rows="6" required></textarea><br />
+    <button type="submit">Dodaj artykuł</button>
+  </form>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

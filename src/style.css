@@ -1,0 +1,11 @@
+body {
+  background-color:beige
+}
+.div {
+  flex: center;
+  flex-direction: column;
+}
+h1 {
+  color: darkblue;
+  font-size: 2em;
+}
