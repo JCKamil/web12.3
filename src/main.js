@@ -9,7 +9,7 @@ const form = document.getElementById('article-form');
 
 async function fetchArticles() {
   const { data, error } = await supabase
-    .from('articles') // <- ważne: mała litera!
+    .from('Articles')
     .select('*')
     .order('created_at', { ascending: false });
 
@@ -26,12 +26,12 @@ async function fetchArticles() {
     articleEl.style.borderBottom = '1px solid #ccc';
     articleEl.style.marginBottom = '20px';
 
-    articleEl.innerHTML = `
+    articleEl.innerHTML = 
       <h2>${article.title}</h2>
       <h4>${article.subtitle}</h4>
       <p><em>Autor: ${article.author} | Data: ${new Date(article.created_at).toLocaleString()}</em></p>
       <p>${article.content}</p>
-    `;
+    ;
 
     articlesDiv.appendChild(articleEl);
   });
@@ -49,10 +49,10 @@ form.addEventListener('submit', async (e) => {
   };
 
   const { error } = await supabase.from('articles').insert([newArticle]);
-
-  if (error) {
-    console.error('Błąd podczas dodawania artykułu:', error.message || error);
-    alert('Nie udało się dodać artykułu:\n' + (error.message || JSON.stringify(error)));
+if (error) {
+  console.error('Błąd podczas dodawania artykułu:', error.message || error);
+  alert('Nie udało się dodać artykułu:\n' + (error.message || JSON.stringify(error)));
+}
   } else {
     form.reset();
     fetchArticles();
