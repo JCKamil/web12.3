@@ -57,6 +57,7 @@ if (error) {
     form.reset();
     fetchArticles();
   }
+  }
 });
 
 fetchArticles();
