@@ -60,8 +60,4 @@ form.addEventListener('submit', async (e) => {
 
 fetchArticles();
 
-  }
-});
-
-fetchArticles();
 
