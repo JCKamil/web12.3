@@ -49,8 +49,10 @@ form.addEventListener('submit', async (e) => {
   };
 
   const { error } = await supabase.from('articles').insert([newArticle]);
-  if (error) {
-    alert('Błąd podczas dodawania artykułu: ' + error.message);
+if (error) {
+  console.error('Błąd podczas dodawania artykułu:', error.message || error);
+  alert('Nie udało się dodać artykułu:\n' + (error.message || JSON.stringify(error)));
+}
   } else {
     form.reset();
     fetchArticles();
